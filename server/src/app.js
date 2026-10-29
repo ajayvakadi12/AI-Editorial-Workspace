@@ -16,17 +16,22 @@ export function createApp() {
   app.set("trust proxy", 1);
 
   // Security & Body parsing
-  const allowedOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
-  app.use(cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, server-to-server) or matching allowedOrigin
-      if (!origin || origin === allowedOrigin || allowedOrigin === '*') {
-        return callback(null, true);
-      }
-      return callback(new Error('CORS not allowed for this origin'));
-    },
-    credentials: true,
-  }));
+  const allowedOrigins = [
+  'http://localhost:5173',
+  'https://ai-editorial-workspace-rho.vercel.app',
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.error('Blocked CORS origin:', origin);
+    return callback(new Error(`CORS not allowed for this origin: ${origin}`));
+  },
+  credentials: true,
+}));
 
   app.use(express.json({ limit: '2mb' }));
 
