@@ -13,6 +13,7 @@ dotenv.config();
 
 export function createApp() {
   const app = express();
+  app.set("trust proxy", 1);
 
   // Security & Body parsing
   const allowedOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
