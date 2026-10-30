@@ -1,3 +1,6 @@
+
+LIVE DEMO - https://ai-editorial-workspace-rho.vercel.app/
+
 # AI Editorial Workspace
 
 > **A high-signal editorial research and writing workspace built for *This Week in AI*.**  
